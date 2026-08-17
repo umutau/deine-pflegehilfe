@@ -81,7 +81,7 @@
       <h3>8. Cookies</h3>
       <p>Unsere Website verwendet Cookies.</p>
       <p>Nicht technisch notwendige Cookies werden erst nach Ihrer ausdrücklichen Einwilligung gesetzt.</p>
-      <p>Sie können Ihre Einwilligung jederzeit über das Cookie-Banner widerrufen oder ändern.</p>
+      <p>Sie können Ihre Einwilligung jederzeit über den Link &bdquo;Cookie-Einstellungen&ldquo; im Footer dieser Website widerrufen oder ändern.</p>
 
       <h3>9. Hosting</h3>
       <p>Diese Website wird bei <strong>IONOS SE</strong> gehostet.</p>
@@ -110,9 +110,20 @@
 
   <footer class="site-footer">
     <p>&copy; 2026 Meltem Gündogdu &mdash; Ambulante Betreuung &amp; Pflege</p>
-    <p><a href="/impressum/">Impressum</a> &middot; <a href="/datenschutz/">Datenschutz</a></p>
+    <p><a href="/impressum/">Impressum</a> &middot; <a href="/datenschutz/">Datenschutz</a> &middot; <button type="button" class="link-button" id="cookie-settings-link">Cookie-Einstellungen</button></p>
   </footer>
 
   <a class="sticky-call" href="tel:+491705000678" data-gtm-event="phone_click">📞 Jetzt anrufen</a>
+
+  <div id="cookie-banner" class="cookie-banner" hidden>
+    <div class="cookie-banner-inner">
+      <p>Diese Website verwendet nur technisch notwendige Funktionen. Optionale Cookies für Analyse (z. B. Google Analytics) werden erst nach Ihrer Zustimmung aktiviert. Weitere Informationen in unserer <a href="/datenschutz/">Datenschutzerklärung</a>.</p>
+      <div class="cookie-banner-actions">
+        <button type="button" class="btn btn-outline" data-consent="reject">Nur notwendige</button>
+        <button type="button" class="btn btn-primary" data-consent="accept">Alle akzeptieren</button>
+      </div>
+    </div>
+  </div>
+  <script src="/assets/consent.js" defer></script>
 </body>
 </html>
