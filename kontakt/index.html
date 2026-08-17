@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kontakt | Meltem Gündogdu – Ambulante Betreuung & Pflege in Rellingen</title>
+  <meta name="description" content="Nehmen Sie unverbindlich Kontakt zu Meltem Gündogdu auf – persönliche Betreuung und Alltagsbegleitung in Rellingen und Umgebung, auf Deutsch und Türkisch.">
+  <link rel="canonical" href="https://www.deine-pflegehilfe.de/kontakt/">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a class="brand" href="/">Deine Pflegehilfe</a>
+    <ul>
+      <li><a href="/">Startseite</a></li>
+      <li><a href="/leistungen/">Leistungen</a></li>
+      <li><a href="/ueber-mich/">Über mich</a></li>
+      <li><a href="/tuerkische-betreuung/">Türkçe</a></li>
+      <li><a href="/kontakt/">Kontakt</a></li>
+      <li><a class="nav-call" href="tel:+491705000678" data-gtm-event="phone_click">📞 0170 5000 678</a></li>
+    </ul>
+  </nav>
+
+  <header class="simple">
+    <h1>Nehmen Sie gerne Kontakt auf</h1>
+    <p>Haben Sie Fragen oder wünschen Sie eine unverbindliche Beratung?</p>
+  </header>
+
+  <main>
+    <section class="section">
+      <p>Ich nehme mir gerne Zeit für Sie und informiere Sie persönlich über die Möglichkeiten einer individuellen Unterstützung und Betreuung im Alltag.</p>
+      <p>Gemeinsam besprechen wir Ihre Situation und finden die passende Lösung für Sie oder Ihre Angehörigen.</p>
+    </section>
+
+    <section class="section">
+      <div class="contact-box">
+        <h2>Meltem Gündogdu</h2>
+        <p>Ambulante Betreuung &amp; Pflege</p>
+        <p><strong>Einsatzgebiet</strong><br>
+        Rellingen, Halstenbek, Pinneberg, Ellerbek, Schenefeld und Bönningstedt.</p>
+        <div class="cta-row" style="justify-content:center;">
+          <a class="btn btn-call" href="tel:+491705000678" data-gtm-event="phone_click">📞 Anrufen</a>
+          <a class="btn btn-outline" href="mailto:meltemau83@gmail.com" data-gtm-event="email_click">✉️ E-Mail schreiben</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="card">
+        <h2>Oder schreiben Sie mir über dieses Formular</h2>
+        <p>Ich melde mich zeitnah bei Ihnen zurück.</p>
+
+        <form id="contact-form" class="contact-form">
+          <!-- Web3Forms access key -->
+          <input type="hidden" name="access_key" value="909bfd08-eb7e-4a5f-be61-6edbcb801291">
+          <input type="hidden" name="subject" value="Neue Kontaktanfrage von deine-pflegehilfe.de">
+          <input type="hidden" name="from_name" value="Kontaktformular deine-pflegehilfe.de">
+          <!-- honeypot: bots tend to fill every field; leave this empty and hidden from real users -->
+          <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off">
+
+          <label for="cf-name">Name</label>
+          <input id="cf-name" type="text" name="name" required autocomplete="name">
+
+          <label for="cf-phone">Telefon</label>
+          <input id="cf-phone" type="tel" name="phone" autocomplete="tel">
+
+          <label for="cf-email">E-Mail</label>
+          <input id="cf-email" type="email" name="email" required autocomplete="email">
+
+          <label for="cf-ort">Ort</label>
+          <input id="cf-ort" type="text" name="ort" autocomplete="address-level2" placeholder="z. B. Rellingen">
+
+          <label for="cf-message">Nachricht</label>
+          <textarea id="cf-message" name="message" rows="5" required></textarea>
+
+          <button type="submit">Nachricht senden</button>
+          <p id="cf-status" class="cf-status" role="status" aria-live="polite"></p>
+          <p class="form-privacy-note">Mit dem Absenden dieses Formulars stimmen Sie der Verarbeitung Ihrer Angaben zur Bearbeitung Ihrer Anfrage zu. Weitere Informationen finden Sie in der <a href="/datenschutz/">Datenschutzerklärung</a>. Bitte geben Sie keine sensiblen Gesundheitsdaten über dieses Formular an &ndash; das Weitere besprechen wir gerne persönlich.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Meltem Gündogdu &mdash; Ambulante Betreuung &amp; Pflege</p>
+    <p><a href="/impressum/">Impressum</a> &middot; <a href="/datenschutz/">Datenschutz</a></p>
+  </footer>
+
+  <a class="sticky-call" href="tel:+491705000678" data-gtm-event="phone_click">📞 Jetzt anrufen</a>
+
+  <script>
+    const form = document.getElementById("contact-form");
+    const status = document.getElementById("cf-status");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      if (form.botcheck.checked) return; // honeypot tripped, silently drop
+
+      const key = form.access_key.value;
+      if (!key || key === "YOUR_WEB3FORMS_ACCESS_KEY") {
+        status.textContent = "Formular ist noch nicht eingerichtet (fehlender Web3Forms-Zugriffsschlüssel).";
+        status.className = "cf-status cf-error";
+        return;
+      }
+
+      const submitBtn = form.querySelector("button[type=submit]");
+      submitBtn.disabled = true;
+      status.textContent = "Wird gesendet …";
+      status.className = "cf-status";
+
+      try {
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(Object.fromEntries(new FormData(form))),
+        });
+        const data = await res.json();
+        if (data.success) {
+          status.textContent = "Danke für Ihre Nachricht! Ich melde mich so schnell wie möglich bei Ihnen.";
+          status.className = "cf-status cf-success";
+          form.reset();
+          if (window.dataLayer) window.dataLayer.push({ event: "form_submit", form_id: "contact-form" });
+        } else {
+          throw new Error(data.message || "Unbekannter Fehler");
+        }
+      } catch (err) {
+        status.textContent = "Leider ist etwas schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie direkt eine E-Mail.";
+        status.className = "cf-status cf-error";
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
