@@ -11,16 +11,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Upload via FTPS
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: www789.your-server.de
-          username: ffz8by
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
-          server-dir: /public_html/
-          exclude: |
-            **/.git*
-            **/.git*/**
-            .github/**
-            README.md
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Upload via FTPS (lftp)
+        env:
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          lftp -u "ffz8by,$FTP_PASSWORD" www789.your-server.de <<'LFTP'
+          set ftp:ssl-force true
+          set ftp:ssl-protect-data true
+          set ssl:verify-certificate yes
+          set net:max-retries 3
+          set net:timeout 20
+          mirror --reverse --verbose --parallel=2 \
+            --exclude-glob .git* \
+            --exclude-glob .github/ \
+            --exclude-glob README.md \
+            ./ /public_html/
+          bye
+          LFTP
