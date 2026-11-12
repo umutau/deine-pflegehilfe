@@ -6,7 +6,7 @@
   <title>Kontakt | Pflege-Nachbarin – Betreuung & Alltagshilfe in Rellingen, Pinneberg & Hamburg</title>
   <meta name="description" content="Nehmen Sie unverbindlich Kontakt zu Pflege-Nachbarin auf – persönliche Betreuung und Alltagsbegleitung in Rellingen, Pinneberg, Hamburg-Eidelstedt und Umgebung, auf Deutsch und Türkisch.">
   <link rel="canonical" href="https://pflege-nachbarin.de/kontakt/">
-  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="/assets/styles.css?v=2">
 </head>
 <body>
   <nav class="site-nav">
@@ -117,8 +117,9 @@
         });
         const data = await res.json();
         if (data.success) {
-          status.textContent = "Danke für Ihre Nachricht! Ich melde mich so schnell wie möglich bei Ihnen.";
+          status.textContent = "✓ Danke für Ihre Nachricht! Ich melde mich so schnell wie möglich bei Ihnen.";
           status.className = "cf-status cf-success";
+          status.scrollIntoView({ behavior: "smooth", block: "center" });
           form.reset();
           if (window.dataLayer) window.dataLayer.push({ event: "form_submit", form_id: "contact-form" });
         } else {
