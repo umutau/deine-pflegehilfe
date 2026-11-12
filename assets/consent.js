@@ -1,10 +1,9 @@
 (function () {
   "use strict";
 
-  // TODO: replace with the real GTM container ID once Google Analytics /
-  // Tag Manager / Ads is actually set up. Until this is a real GTM-XXXXXXX
-  // id, nothing is loaded, consent or not — so it's safe to leave as-is.
-  var GTM_ID = "GTM-XXXXXXX";
+  // Google Tag Manager container. Only loaded after the visitor clicks
+  // "Alle akzeptieren" in the cookie banner.
+  var GTM_ID = "GTM-WM86QQS5";
 
   var STORAGE_KEY = "dp_cookie_consent";
   var banner = document.getElementById("cookie-banner");
@@ -38,6 +37,15 @@
     if (!isConfigured() || window.__gtmLoaded) return;
     window.__gtmLoaded = true;
     window.dataLayer = window.dataLayer || [];
+    // Consent Mode v2: tell Google tags the visitor has agreed (required for
+    // Google Ads measurement in the EU). GTM only loads after consent anyway.
+    function gtag() { window.dataLayer.push(arguments); }
+    gtag("consent", "default", {
+      ad_storage: "granted",
+      ad_user_data: "granted",
+      ad_personalization: "granted",
+      analytics_storage: "granted"
+    });
     window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
     var first = document.getElementsByTagName("script")[0];
     var tag = document.createElement("script");
@@ -77,6 +85,18 @@
       if (action === "reject") applyConsent("rejected");
     });
   }
+
+  // Conversion events: every link with data-gtm-event="phone_click" /
+  // "email_click" pushes that event to GTM (only when GTM is loaded).
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest ? e.target.closest("[data-gtm-event]") : null;
+    if (el && window.__gtmLoaded) {
+      window.dataLayer.push({
+        event: el.getAttribute("data-gtm-event"),
+        link_url: el.getAttribute("href")
+      });
+    }
+  });
 
   if (settingsLink) {
     settingsLink.addEventListener("click", function (e) {
