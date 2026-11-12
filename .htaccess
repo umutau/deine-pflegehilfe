@@ -1,9 +1,9 @@
 RewriteEngine On
 
-# Alle anderen Hostnamen (www., deine-pflegehilfe.de, ...) -> https://pflege-nachbarin.de (301)
-RewriteCond %{HTTP_HOST} !^pflege-nachbarin\.de$ [NC]
-RewriteRule ^ https://pflege-nachbarin.de%{REQUEST_URI} [L,R=301]
+# Alle anderen Hostnamen (www., pflege-nachbarin.de, deine-pflegehilfe.de, ...) -> https://pflegehilfe-mg.de (301)
+RewriteCond %{HTTP_HOST} !^pflegehilfe-mg\.de$ [NC]
+RewriteRule ^ https://pflegehilfe-mg.de%{REQUEST_URI} [L,R=301]
 
 # http -> https
 RewriteCond %{HTTPS} off
-RewriteRule ^ https://pflege-nachbarin.de%{REQUEST_URI} [L,R=301]
+RewriteRule ^ https://pflegehilfe-mg.de%{REQUEST_URI} [L,R=301]
